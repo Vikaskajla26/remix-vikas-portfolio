@@ -1,10 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Kanit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Kanit', sans-serif;
+}
+
 @layer base {
-  * {
+  *, ::before, ::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Kanit', sans-serif;
   }
 
   html,
@@ -17,9 +23,16 @@
     width: 100%;
     min-height: 100%;
   }
+
+  h1, h2, h3, h4, h5, h6,
+  button, input, textarea, p, span, a,
+  .hero-heading {
+    font-family: 'Kanit', sans-serif !important;
+  }
 }
 
 .hero-heading {
+  font-family: 'Kanit', sans-serif !important;
   background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -39,4 +52,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #404552;
 }
-
