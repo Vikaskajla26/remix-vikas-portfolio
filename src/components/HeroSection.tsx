@@ -60,7 +60,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
       </div>
 
       {/* Hero Portrait (Magnet with Mobile Tracking & Gyroscope) */}
-      <div className="absolute left-1/2 -translate-x-1/2 z-10 bottom-0 pointer-events-auto flex items-center justify-center">
+      <div className="absolute left-1/2 -translate-x-1/2 z-10 top-[20%] sm:top-[17%] md:top-auto md:bottom-0 pointer-events-auto flex items-center justify-center">
         {/* Ambient Radial Glow behind character */}
         <div className="absolute w-[95%] h-[95%] rounded-full bg-gradient-to-tr from-[#B600A8]/30 via-[#404552]/45 to-transparent blur-3xl pointer-events-none -z-10" />
 
@@ -70,14 +70,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
             strength={3.2}
             activeTransition="transform 0.25s ease-out"
             inactiveTransition="transform 0.7s ease-in-out"
-            className="w-[420px] sm:w-[560px] md:w-[700px] lg:w-[860px] xl:w-[980px] max-w-[98vw]"
+            className="w-[320px] xs:w-[360px] sm:w-[460px] md:w-[600px] lg:w-[720px] xl:w-[840px] max-w-[95vw]"
           >
-            <img
-              src={HERO_PORTRAIT_URL}
-              alt="Vikas 3D Creator Portrait"
-              referrerPolicy="no-referrer"
-              className="w-full h-auto object-cover pointer-events-none select-none drop-shadow-[0_30px_70px_rgba(0,0,0,0.9)] filter contrast-105 transition-transform duration-300"
-            />
+            <div className="relative w-full [mask-image:linear-gradient(to_bottom,black_88%,transparent_100%)]">
+              <img
+                src={HERO_PORTRAIT_URL}
+                alt="Vikas 3D Creator Portrait"
+                referrerPolicy="no-referrer"
+                className="w-full h-auto object-cover pointer-events-none select-none drop-shadow-[0_30px_70px_rgba(0,0,0,0.95)] filter contrast-105 transition-transform duration-300"
+              />
+            </div>
           </Magnet>
         </FadeIn>
       </div>
