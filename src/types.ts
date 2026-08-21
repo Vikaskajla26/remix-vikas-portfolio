@@ -2,11 +2,14 @@ export interface ProjectItem {
   id: string;
   number: string;
   name: string;
-  category: 'Client' | 'Personal';
-  col1Image1: string;
-  col1Image2: string;
-  col2Image: string;
-  description?: string;
+  category: 'Client' | 'Personal' | 'Reels' | 'UGC' | 'AI Video';
+  videoUrl: string;
+  fallbackPoster?: string;
+  description: string;
+  tags?: string[];
+  duration?: string;
+  aspectRatio?: '9:16' | '16:9';
+  client?: string;
   liveUrl?: string;
 }
 

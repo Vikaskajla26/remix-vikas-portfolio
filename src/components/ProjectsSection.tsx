@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Play, Pause, Volume2, VolumeX, Sparkles, ExternalLink, Film, ArrowUpRight } from 'lucide-react';
 import { FadeIn } from './FadeIn';
 import { LiveProjectButton } from './LiveProjectButton';
 import { ProjectItem } from '../types';
@@ -10,48 +11,45 @@ interface ProjectsSectionProps {
 
 const PROJECTS: ProjectItem[] = [
   {
-    id: 'nextlevel-studio',
+    id: 'ayurvidhapeeth-reel',
     number: '01',
-    name: 'Nextlevel Studio',
+    name: 'Ayurvidhapeeth App Reel',
     category: 'Client',
-    col1Image1:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85',
-    col1Image2:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85',
-    col2Image:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85',
+    videoUrl: '/reel1.mp4',
+    aspectRatio: '9:16',
+    duration: '0:35',
+    client: 'Ayurvidhapeeth',
+    tags: ['UGC Video', 'EdTech', 'Sound Design', 'High Retention Cuts'],
     description:
-      'Interactive 3D web experience for Nextlevel Studio featuring photorealistic lighting, dynamic camera movements, and custom asset shaders.',
+      'High-retention UGC & EdTech reel crafted with dynamic typography, audio-visual synchronisation, and quick-paced storytelling designed to maximize hook rates and user engagement.',
     liveUrl: 'https://www.instagram.com/reel/DbC8XLAJAHv/?igsh=MWYxYzEwemU5ZmFodw==',
   },
   {
-    id: 'aura-brand-identity',
+    id: 'cinematic-storytelling',
     number: '02',
-    name: 'Aura Brand Identity',
+    name: 'Cinematic Story Reel',
     category: 'Personal',
-    col1Image1:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85',
-    col1Image2:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85',
-    col2Image:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85',
+    videoUrl: '/reel2.mp4',
+    aspectRatio: '9:16',
+    duration: '0:42',
+    client: 'Cinematic Vaidya',
+    tags: ['Cinematic Edit', 'Color Grading', 'Sound FX', '3D Motion'],
     description:
-      'Comprehensive brand identity exploration utilizing organic 3D glass forms, vibrant gradients, and elegant typography systems.',
+      'Cinematic reel edit with dramatic pacing, custom sound design, atmosphere transitions, and precision color grading tuned for immersive visual storytelling.',
     liveUrl: 'https://www.instagram.com/cinematicvaidya/reel/DblsuhKMGem/',
   },
   {
-    id: 'solaris-digital',
+    id: 'ai-motion-narrative',
     number: '03',
-    name: 'Solaris Digital',
-    category: 'Client',
-    col1Image1:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85',
-    col1Image2:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85',
-    col2Image:
-      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85',
+    name: 'AI Video & 3D Motion',
+    category: 'AI Video',
+    videoUrl: '/reel1.mp4',
+    aspectRatio: '9:16',
+    duration: '0:30',
+    client: 'Brand Campaign',
+    tags: ['AI Generation', 'VFX Motion', 'Retention Hook', 'Premiere Pro'],
     description:
-      'Futuristic digital ecosystem design featuring real-time 3D solar system simulations, clean UI layouts, and smooth fluid animations.',
+      'Transformative AI visual editing combining custom generated 3D elements, speed ramps, impactful sound design, and viral narrative hooks.',
     liveUrl: 'https://www.instagram.com/cinematicvaidya/reel/DZu_0jmMQvB/',
   },
 ];
@@ -70,6 +68,11 @@ const ProjectCard: React.FC<CardProps> = ({
   onLiveProjectClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'start start'],
@@ -77,6 +80,42 @@ const ProjectCard: React.FC<CardProps> = ({
 
   const targetScale = 1 - (totalCards - 1 - index) * 0.03;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+
+  const attemptPlay = useCallback(async () => {
+    if (!videoRef.current) return;
+    try {
+      videoRef.current.muted = isMuted;
+      await videoRef.current.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
+  }, [isMuted]);
+
+  useEffect(() => {
+    // Autoplay muted video in preview
+    attemptPlay();
+  }, [attemptPlay]);
+
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      attemptPlay();
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const nextMuted = !isMuted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
+  };
 
   return (
     <div
@@ -88,73 +127,158 @@ const ProjectCard: React.FC<CardProps> = ({
     >
       <motion.div
         style={{ scale }}
-        className="rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 w-full max-w-6xl mx-auto flex flex-col gap-6 shadow-2xl overflow-hidden transition-all duration-300"
+        className="rounded-[36px] sm:rounded-[48px] md:rounded-[56px] border-2 border-[#D7E2EA]/40 bg-[#0C0C0C] p-5 sm:p-7 md:p-9 w-full max-w-6xl mx-auto flex flex-col gap-6 shadow-2xl overflow-hidden transition-all duration-300 backdrop-blur-sm"
       >
-        {/* Top Row */}
+        {/* Top Row: Header with Number, Title, Tags, Live Button */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#D7E2EA]/20">
-          <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
+          <div className="flex items-center gap-3 sm:gap-5 flex-wrap">
             {/* Number */}
             <span
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+              style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.5rem)' }}
               className="font-black text-[#D7E2EA] leading-none"
             >
               {project.number}
             </span>
 
             {/* Category Tag */}
-            <span className="text-xs sm:text-sm font-light uppercase tracking-widest px-3 py-1 rounded-full border border-[#D7E2EA]/40 text-[#D7E2EA]">
+            <span className="text-xs sm:text-sm font-light uppercase tracking-widest px-3 py-1 rounded-full border border-[#D7E2EA]/40 text-[#D7E2EA] bg-[#141414]">
               {project.category}
             </span>
 
             {/* Project Name */}
             <h3
-              style={{ fontSize: 'clamp(1.1rem, 2.5vw, 2.2rem)' }}
+              style={{ fontSize: 'clamp(1.1rem, 2.2vw, 2rem)' }}
               className="font-medium uppercase text-[#D7E2EA] tracking-wide"
             >
               {project.name}
             </h3>
           </div>
 
-          {/* Ghost Live Project Button */}
-          <LiveProjectButton
-            href={project.liveUrl}
-            onClick={() => onLiveProjectClick?.(project)}
-          />
+          <div className="flex items-center gap-3">
+            {/* Live Project Button */}
+            <LiveProjectButton
+              href={project.liveUrl}
+              onClick={() => onLiveProjectClick?.(project)}
+            />
+          </div>
         </div>
 
-        {/* Bottom Row: Two-Column Image Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 w-full items-stretch">
-          {/* Left Column (40% width -> col-span-5) */}
-          <div className="md:col-span-5 flex flex-col gap-4 sm:gap-6">
-            {/* Left Top Image */}
-            <div className="overflow-hidden rounded-[40px] sm:rounded-[50px] md:rounded-[60px] bg-[#181818] border border-[#222]">
-              <img
-                src={project.col1Image1}
-                alt={`${project.name} preview 1`}
-                style={{ height: 'clamp(130px, 16vw, 230px)' }}
-                className="w-full object-cover transition-transform duration-500 hover:scale-105"
+        {/* Bottom Row: Video Showcase + Details Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          {/* Video Player Column (5 cols on lg) */}
+          <div className="lg:col-span-5 flex justify-center w-full">
+            <div
+              onClick={togglePlay}
+              className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#141414] border border-[#262626] shadow-2xl group hover:border-[#646973] transition-all duration-300 cursor-pointer"
+            >
+              <video
+                ref={videoRef}
+                src={project.videoUrl}
+                autoPlay
+                loop
+                muted={isMuted}
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
               />
-            </div>
 
-            {/* Left Bottom Image */}
-            <div className="overflow-hidden rounded-[40px] sm:rounded-[50px] md:rounded-[60px] bg-[#181818] border border-[#222]">
-              <img
-                src={project.col1Image2}
-                alt={`${project.name} preview 2`}
-                style={{ height: 'clamp(160px, 22vw, 340px)' }}
-                className="w-full object-cover transition-transform duration-500 hover:scale-105"
-              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-85 transition-opacity pointer-events-none" />
+
+              {/* Audio Toggle Button */}
+              <button
+                onClick={toggleMute}
+                className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all shadow-lg cursor-pointer"
+                title={isMuted ? 'Unmute' : 'Mute'}
+              >
+                {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              </button>
+
+              {/* Play / Pause Center Overlay */}
+              {!isPlaying && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-black/40 backdrop-blur-[2px] transition-all">
+                  <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform">
+                    <Play className="w-7 h-7 ml-0.5 fill-white text-white" />
+                  </div>
+                  <span className="text-[11px] text-white/80 font-mono mt-2 uppercase tracking-wider">
+                    Click to Play
+                  </span>
+                </div>
+              )}
+
+              {isPlaying && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
+                    <Pause className="w-4 h-4 fill-white" />
+                  </div>
+                </div>
+              )}
+
+              {/* Video Bottom Label */}
+              <div className="absolute bottom-3 left-3 right-3 pointer-events-none z-10">
+                <span className="text-[10px] uppercase font-mono tracking-widest text-[#D7E2EA]/70 block">
+                  Vertical Video • 9:16
+                </span>
+                <span className="text-sm font-semibold text-white truncate block">
+                  {project.name}
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Right Column (60% width -> col-span-7) */}
-          <div className="md:col-span-7 h-full flex">
-            <div className="overflow-hidden rounded-[40px] sm:rounded-[50px] md:rounded-[60px] bg-[#181818] border border-[#222] w-full h-full min-h-[280px] sm:min-h-[380px] md:min-h-[480px]">
-              <img
-                src={project.col2Image}
-                alt={`${project.name} main preview`}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              />
+          {/* Details & Specs Column (7 cols on lg) */}
+          <div className="lg:col-span-7 flex flex-col justify-between h-full gap-6">
+            {/* Overview */}
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#B600A8] font-mono">
+                <Sparkles className="w-4 h-4" />
+                <span>Recent Edit Showcase</span>
+              </div>
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-[#D7E2EA]/90 font-light">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Tags Grid */}
+            <div className="flex flex-col gap-2.5">
+              <span className="text-xs uppercase tracking-widest text-[#646973] font-mono">
+                Edit Highlights & Tech
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {project.tags?.map((tag, tagIdx) => (
+                  <span
+                    key={tagIdx}
+                    className="px-3 py-1 rounded-full text-xs font-mono bg-[#181818] border border-[#2A2A2A] text-[#D7E2EA]"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Actions Bar */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                onClick={() => onLiveProjectClick?.(project)}
+                className="px-5 py-2.5 rounded-full bg-[#D7E2EA] text-black font-semibold text-xs sm:text-sm uppercase tracking-wider hover:bg-white transition-all flex items-center gap-2 cursor-pointer shadow-md"
+              >
+                <Film className="w-4 h-4" />
+                <span>Watch Breakdown</span>
+              </button>
+
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-5 py-2.5 rounded-full bg-[#1A1A1A] border border-[#333] text-[#D7E2EA] font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-[#252525] hover:border-[#555] transition-all flex items-center gap-2"
+                >
+                  <span>Open Reel</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -174,12 +298,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <FadeIn delay={0} y={40}>
-          <h2
-            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
-            className="hero-heading font-black uppercase text-center leading-none tracking-tight mb-16 sm:mb-20"
-          >
-            Project
-          </h2>
+          <div className="text-center mb-16 sm:mb-20">
+            <span className="text-xs uppercase tracking-widest text-[#646973] font-mono block mb-2">
+              Portfolio & Recent Edits
+            </span>
+            <h2
+              style={{ fontSize: 'clamp(2.8rem, 10vw, 140px)' }}
+              className="hero-heading font-black uppercase leading-none tracking-tight"
+            >
+              Recent Edits
+            </h2>
+          </div>
         </FadeIn>
 
         {/* Sticky Stacking Cards Container */}
