@@ -11,7 +11,7 @@ interface VideoItem {
 const FEATURED_VIDEOS: VideoItem[] = [
   {
     id: '1',
-    title: 'Ayurvidhapeeth App Reel',
+    title: 'UGC & EdTech Reel',
     subtitle: 'UGC & EdTech — 9:16',
     videoSources: [
       '/reel1.mp4',

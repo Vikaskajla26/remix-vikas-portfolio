@@ -11,21 +11,20 @@ interface ProjectsSectionProps {
 
 const PROJECTS: ProjectItem[] = [
   {
-    id: 'ayurvidhapeeth-reel',
+    id: 'reel-edit-1',
     number: '01',
-    name: 'Ayurvidhapeeth App Reel',
+    name: 'UGC & EdTech Reel',
     category: 'Client',
     videoUrl: '/reel1.mp4',
     aspectRatio: '9:16',
     duration: '0:35',
-    client: 'Ayurvidhapeeth',
     tags: ['UGC Video', 'EdTech', 'Sound Design', 'High Retention Cuts'],
     description:
       'High-retention UGC & EdTech reel crafted with dynamic typography, audio-visual synchronisation, and quick-paced storytelling designed to maximize hook rates and user engagement.',
     liveUrl: 'https://www.instagram.com/reel/DbC8XLAJAHv/?igsh=MWYxYzEwemU5ZmFodw==',
   },
   {
-    id: 'cinematic-storytelling',
+    id: 'reel-edit-2',
     number: '02',
     name: 'Cinematic Story Reel',
     category: 'Personal',
@@ -39,18 +38,32 @@ const PROJECTS: ProjectItem[] = [
     liveUrl: 'https://www.instagram.com/cinematicvaidya/reel/DblsuhKMGem/',
   },
   {
-    id: 'ai-motion-narrative',
+    id: 'reel-edit-3',
     number: '03',
-    name: 'AI Video & 3D Motion',
+    name: 'AI Video & 3D Motion Narrative',
     category: 'AI Video',
-    videoUrl: '/reel1.mp4',
+    videoUrl: '/reel4.mp4',
     aspectRatio: '9:16',
     duration: '0:30',
-    client: 'Brand Campaign',
+    client: 'Creative Studio',
     tags: ['AI Generation', 'VFX Motion', 'Retention Hook', 'Premiere Pro'],
     description:
       'Transformative AI visual editing combining custom generated 3D elements, speed ramps, impactful sound design, and viral narrative hooks.',
     liveUrl: 'https://www.instagram.com/cinematicvaidya/reel/DZu_0jmMQvB/',
+  },
+  {
+    id: 'reel-edit-4',
+    number: '04',
+    name: 'Cinematic Visual Edit',
+    category: 'Personal',
+    videoUrl: '/reel5.mp4',
+    aspectRatio: '9:16',
+    duration: '0:38',
+    client: 'Cinematic Vaidya',
+    tags: ['Atmospheric FX', 'Audio Sync', 'Pacing', 'After Effects'],
+    description:
+      'Atmospheric short-form video edit featuring rhythm-synced beats, smooth transitions, and cinematic color palettes.',
+    liveUrl: 'https://www.instagram.com/cinematicvaidya/reel/DblsuhKMGem/',
   },
 ];
 

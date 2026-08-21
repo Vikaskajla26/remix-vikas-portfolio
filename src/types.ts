@@ -2,7 +2,7 @@ export interface ProjectItem {
   id: string;
   number: string;
   name: string;
-  category: 'Client' | 'Personal' | 'Reels' | 'UGC' | 'AI Video';
+  category: 'Client' | 'Personal' | 'Reels' | 'UGC' | 'AI Video' | 'Commercial';
   videoUrl: string;
   fallbackPoster?: string;
   description: string;
